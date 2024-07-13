@@ -1,3 +1,6 @@
+import {ClassValue, clsx} from "clsx";
+import { twMerge } from "tailwind-merge";
+
 export const fileToBase64 = (file: any, callback: any) => {
   const reader = new FileReader();
   reader.readAsDataURL(file);
@@ -7,4 +10,6 @@ export const fileToBase64 = (file: any, callback: any) => {
   };
 };
 
-
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
