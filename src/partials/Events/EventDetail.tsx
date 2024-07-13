@@ -87,7 +87,7 @@ const EventDetail = () => {
               ></iframe>
             </div>
           </div>
-          <div className="rounded-lg p-4 border-2 border-gray-700">
+          <div className="rounded-lg p-4 border-2 border-gray-400">
             <h4 className="text-md font-bold mb-2">
               Join with others <span className="text-green-600">(AI Suggested)</span>
             </h4>
