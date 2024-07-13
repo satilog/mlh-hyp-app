@@ -118,11 +118,3 @@ export default handler;
 // };
 
 // export default handler;
-
-
-// curl -X POST 'https://www.linkedin.com/oauth/v2/accessToken' \
-//      -d 'grant_type=authorization_code' \
-//      -d 'code=AQT85Hywp-eSShUxxR069LZ9AN0FcToUPCER6ttkHbcSaTD7GdaVGOWWxMo2kSB9MFE0nEAD1dlw4lVbUuSbOUVWNTjaN_WP-J0xf_EaQQJeocO85VxbA5H1t7sQ_6SjnZr1aAyeJ4aC1wCZupdf2LJGJ91-148YjbdMRJ8JVu9vhFMi6HCliFIGsTUvXBmWr4cZ9S_O83tw3Zjz1lM' \
-//      -d 'redirect_uri=http%3A%2F%2Flocalhost%3A3002%2Flinkedin%2Fcallback' \
-//      -d 'client_id=86myd38h33jru5' \
-//      -d 'client_secret=GG3akqJ4eTRY9IEP'
