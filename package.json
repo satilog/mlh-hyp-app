@@ -34,11 +34,8 @@
     "react-dom": "18.2.0",
     "react-icons": "^5.0.1",
     "react-select": "^5.8.0",
-<<<<<<< HEAD
     "react-tooltip": "^5.27.1",
-=======
     "tailwind-merge": "^2.4.0",
->>>>>>> 840e39b5d956cd63828fae11c175e1b68720087d
     "tailwindcss": "3.4.1",
     "typescript": "5.4.3"
   },
