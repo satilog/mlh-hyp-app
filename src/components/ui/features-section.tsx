@@ -6,6 +6,7 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { IconBrandYoutubeFilled } from "@tabler/icons-react";
 import Link from "next/link";
+import { FlipWords } from "./flip-words";
 
 export function FeaturesSectionDemo() {
   const features = [
@@ -40,13 +41,20 @@ export function FeaturesSectionDemo() {
       className: "col-span-1 lg:col-span-3 border-b lg:border-none",
     },
   ];
+
+  const words = ["events", "mentors", "upskill", "collaborate"];
   return (
-    <div className="relative z-20 py-10 lg:py-40 max-w-7xl mx-auto">
+    <div className="relative z-20 py-10 lg:py-40 lg:pt-10 max-w-7xl mx-auto">
       <div className="px-8">
         <h4 className="text-3xl lg:text-5xl lg:leading-tight max-w-5xl mx-auto text-center tracking-tight font-medium text-black ">
           All in one place to get the best out of your University life.
         </h4>
 
+        <div className="text-2xl w-full">
+          We will help you with
+          <FlipWords className="text-3xl" words={words} />{" "}
+        </div>{" "}
+        
         <div className="text-sm lg:text-base  max-w-2xl  my-4 mx-auto text-neutral-500 text-center font-normal ">
           We know it can be difficult to keep track of all the events taking place in your university
           especially keeping track of them, but here we will help you with meeting other like minded people, collaborate with them and expand your network.

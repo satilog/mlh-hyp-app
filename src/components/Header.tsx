@@ -10,7 +10,7 @@ export default function Header(props: any) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const tabs = [
-    { name: "Home", href: "/" },
+    { name: "Home", href: "/landing" },
     { name: "Events", href: "/events" },
     { name: "Tutors", href: "/tutors" },
   ];
@@ -22,9 +22,9 @@ export default function Header(props: any) {
       >
         <div
           className="custom-text-color text-2xl font-bold cursor-pointer"
-          onClick={() => router.push("/")}
+          onClick={() => router.push("/landing")}
         >
-          PRODUCT_NAME<span className="font-normal"></span>
+          H<span className="font-bold text-green-600">O</span>BN<span className="font-bold text-green-600">O</span>B
           {/* <Image
             className="hover:cursor-pointer -ml-6"
             src="/smh-logo.png"

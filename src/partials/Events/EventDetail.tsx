@@ -1,21 +1,80 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useAppContext } from "@/context/AppContext";
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
+import ReactMarkdown from "react-markdown";
+
+interface Event {
+  _id: string;
+  title: string;
+  host: string;
+  date: string;
+  time: string;
+  location: string;
+  attendees: number;
+  price: string;
+  imageUrl: string;
+  description: string;
+  category: string;
+  tags: string[];
+  contactEmail: string;
+  website: string;
+  capacity: number;
+  registrationLink: string;
+}
+
+interface User {
+  id: string;
+  name: string;
+  avatarUrl: string;
+  interests: string[];
+  availability: string[];
+  score: number;
+  matchExplanation: string;
+}
 
 const EventDetail = () => {
   const router = useRouter();
   const { id } = router.query;
-  const { events, users, currentUser } = useAppContext();
-  const [event, setEvent] = useState(null);
-  const [suggestedUsers, setSuggestedUsers] = useState([]);
+  const [event, setEvent] = useState<Event | null>(null);
+  const [suggestedUsers, setSuggestedUsers] = useState<User[]>([]);
+  const currentUser = {
+    interests: ["tech", "art", "music"],
+    availability: ["2024-09-23", "2024-08-17"],
+  }; // Replace with the actual current user data
+  const users = [
+    {
+      id: "1",
+      name: "Alice",
+      avatarUrl: "https://example.com/alice.jpg",
+      interests: ["tech", "science"],
+      availability: ["2024-09-23"],
+    },
+    {
+      id: "2",
+      name: "Bob",
+      avatarUrl: "https://example.com/bob.jpg",
+      interests: ["art", "music"],
+      availability: ["2024-08-17"],
+    },
+  ]; // Replace with the actual users data
 
   useEffect(() => {
-    if (id) {
-      const foundEvent = events.find((event) => event._id === id);
-      setEvent(foundEvent);
-    }
-  }, [id, events]);
+    const fetchEvent = async () => {
+      if (id) {
+        try {
+          const response = await fetch(`/api/events/${id}`);
+          const data = await response.json();
+          if (data.success) {
+            setEvent(data.data);
+          }
+        } catch (error) {
+          console.error("Failed to fetch event:", error);
+        }
+      }
+    };
+
+    fetchEvent();
+  }, [id]);
 
   useEffect(() => {
     if (event) {
@@ -64,7 +123,7 @@ const EventDetail = () => {
             className="w-full h-auto rounded-md object-cover mb-4"
           />
           <h3 className="text-lg font-bold mb-2">Details</h3>
-          <p className="mb-4">{event.description}</p>
+          <ReactMarkdown className="prose mb-4">{event.description}</ReactMarkdown>
           <div className="flex flex-col lg:flex-row gap-4">
             <div className="flex-1">
               <h4 className="text-md font-bold mb-2">Hosted by</h4>

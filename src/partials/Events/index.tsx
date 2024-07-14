@@ -1,20 +1,65 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { NextPage } from "next";
-import { useAppContext } from "@/context/AppContext";
 import { FaEdit } from "react-icons/fa";
+
+interface Event {
+  _id: string;
+  title: string;
+  host: string;
+  date: string;
+  time: string;
+  location: string;
+  attendees: number;
+  price: string;
+  imageUrl: string;
+  description: string;
+  category: string;
+  tags: string[];
+  contactEmail: string;
+  website: string;
+  capacity: number;
+  registrationLink: string;
+}
 
 const Events: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
-  const { events, fetchEvents } = useAppContext();
   const userId = "123"; // Replace with the actual user ID
 
+  // State to store events
+  const [events, setEvents] = useState<Event[]>([]);
+  const [routeChanged, setRouteChanged] = useState(false);
+
   useEffect(() => {
-    if (id || userId) {
-      fetchEvents((id || userId) as string);
-    }
-  }, [events]);
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch('/api/events');
+        const data = await response.json();
+        console.log(data.data)
+        if (data.success) {
+          setEvents(data.data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch events:", error);
+      }
+    };
+
+    fetchEvents();
+  }, [id, userId]);
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      setRouteChanged((prev) => !prev);
+    };
+
+    router.events.on('routeChangeComplete', handleRouteChange);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, [router]);
 
   return (
     <div className="custom-container min-h-screen w-full p-6">
@@ -48,7 +93,7 @@ const Events: NextPage = () => {
         {events.map((event) => (
           <div
             key={event._id}
-            onClick={() => router.push(`/event/${event._id}`)}
+            onClick={() => router.push(`/events/${event._id}`)}
             className="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-100 transition-transform duration-300 ease-in-out cursor-pointer"
           >
             <img
