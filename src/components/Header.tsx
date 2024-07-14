@@ -1,13 +1,27 @@
 import { useRouter } from "next/router";
 import { useTheme } from "next-themes";
-import { useAppContext } from "@/context/AppContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Header(props: any) {
-  // const { isHeaderFullWidth } = useAppContext();
   const router = useRouter();
   const { theme, setTheme } = useTheme();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  
+  // This state will hold the current path to trigger re-renders
+  const [currentPath, setCurrentPath] = useState(router.pathname);
+
+  useEffect(() => {
+    const handleRouteChange = (url: string) => {
+      setCurrentPath(url);
+    };
+
+    router.events.on("routeChangeComplete", handleRouteChange);
+    
+    // Cleanup event listener on unmount
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router.events]);
 
   const tabs = [
     { name: "Home", href: "/landing" },
@@ -25,14 +39,6 @@ export default function Header(props: any) {
           onClick={() => router.push("/landing")}
         >
           H<span className="font-bold text-green-600">O</span>BN<span className="font-bold text-green-600">O</span>B
-          {/* <Image
-            className="hover:cursor-pointer -ml-6"
-            src="/smh-logo.png"
-            alt="Logo"
-            width={200}
-            height={220}
-            onClick={() => router.push("/")}
-          /> */}
         </div>
 
         {/* Tabs and Sign Up Button Group */}
@@ -75,14 +81,6 @@ export default function Header(props: any) {
               </div>
             ))}
           </div>
-
-          {/* Sign Up Button */}
-          {/* <button
-            className="py-2 px-4 border border-transparent rounded-md shadow-sm text-md font-medium text-white bg-black hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black"
-            onClick={() => router.push("/signup")}
-          >
-            Sign Up
-          </button> */}
         </div>
       </div>
     </div>
