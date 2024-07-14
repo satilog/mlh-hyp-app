@@ -28,4 +28,8 @@ export default async function handler(req: any, res: any) {
       res.status(400).json({ success: false });
       break;
   }
+<<<<<<< HEAD
 }
+=======
+};
+>>>>>>> origin/main

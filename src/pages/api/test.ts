@@ -2,6 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '../../lib/mongo';
 import mongoose from 'mongoose';
+import User from '@/models/User';
 
 type Data = {
   message: string;
@@ -19,9 +20,9 @@ export default async function handler(
 ) {
   await dbConnect().then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.error('Error connecting to MongoDB:', err));
-
-  const newMessage = new Hello({ name: 'Hello, world!' });
-  await newMessage.save();
-
-  res.status(200).json({ message: 'Hello, world!' });
+//   get user profile data
+    const allUsers = await User.find({});
+    console.log(allUsers);
+    // now return the data
+    res.status(200).json({ message: 'Hello, world!', allUsers });
 }
