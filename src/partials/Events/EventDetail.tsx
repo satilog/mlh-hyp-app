@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 import ReactMarkdown from "react-markdown";
-import 'tailwindcss/tailwind.css';
 
 interface Event {
   _id: string;
@@ -39,7 +38,7 @@ const EventDetail = () => {
   const [event, setEvent] = useState<Event | null>(null);
   const [suggestedUsers, setSuggestedUsers] = useState<User[]>([]);
   const [routeChanged, setRouteChanged] = useState(false);
-
+  
   const currentUser = {
     interests: ["tech", "art", "music"],
     availability: ["2024-09-23", "2024-08-17"],
@@ -109,11 +108,11 @@ const EventDetail = () => {
       setRouteChanged((prev) => !prev);
     };
 
-    router.events.on("routeChangeComplete", handleRouteChange);
+    router.events.on('routeChangeComplete', handleRouteChange);
 
     // Cleanup event listener on component unmount
     return () => {
-      router.events.off("routeChangeComplete", handleRouteChange);
+      router.events.off('routeChangeComplete', handleRouteChange);
     };
   }, [router]);
 
@@ -166,8 +165,7 @@ const EventDetail = () => {
           </div>
           <div className="rounded-lg p-4 border-2 border-gray-400">
             <h4 className="text-md font-bold mb-2">
-              Join with others{" "}
-              <span className="text-green-600">(AI Suggested)</span>
+              Join with others <span className="text-green-600">(AI Suggested)</span>
             </h4>
             <div className="flex flex-wrap gap-2">
               {suggestedUsers.map((user) => (
